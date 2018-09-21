@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>Editando Usuario</h1>
-<form class="form-horizontal" method="POST" action="{{ route('users.update', $user->id) }}">
+<form class="form-horizontal" method="POST" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="form-group">
@@ -26,7 +26,8 @@
         <div class="form-group">
           <label class="control-label col-sm-2" for="foto">Foto</label>
           <div class="col-sm-10">
-          <img src="{{ $user->fotothun }}" class="img-thumbnail" id="foto" alt="{{$user->nome}}"/>
+          <img src="/{{$user->fotothun}}" class="img-thumbnail" alt="{{$user->nome}}" id="foto"><img />
+          <input type="file" class="form-control" name="foto" id="foto"  accept="image/*">
           </div>
         </div>
         <div class="form-group">

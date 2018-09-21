@@ -36,52 +36,55 @@ class UserController extends Controller
 
     public function store(Request $request, ImageRepository $repo, User $users)
     {    
-        if ($request->hasFile('foto')) {
-           $userfoto = $repo->saveImage($request->foto);
-        }
-
-        if ($request->hasFile('foto')) {
-            $userfotothum= $repo->saveImageThumbnail($request->foto, 150);
-         }
+        $userfoto = $repo->saveImage($request->foto);
+        $userfotothum= $repo->saveImageThumbnail($request->file('foto'), 150);
         $users->nome = $request->get('nome');
         $users->email = $request->get('email');
         $users->datanasc = $request->get('data'); 
         $users->foto = $userfoto;
         $users->fotothun = $userfotothum;
         $users->id_fk_categoria = $request->get('id_categoria');
-
+        
         try{
             $users->save();
         }
         catch(Exception $ex)
         {
-            $ex->getMessage();
+           $ex->getMessage();
         }
         return redirect('users');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, ImageRepository $repo)
     {
-      $request->validate([
+       
+        $request->validate([
         'nome'=>'required',
         'email'=>'required'
       ]);
 
       $users = User::find($id);
+      
       $users->nome = $request->get('nome');
       $users->email = $request->get('email');
-      //$users->foto = $request->get('foto');
+      if ($request->foto != "") {
+        $userfoto = $repo->saveImage($request->foto);
+        $userfotothum= $repo->saveImageThumbnail($request->foto, 150);
+        $repo->apagarImages($users->foto, $users->fotothun);
+        $users->foto = $userfoto;
+        $users->fotothun = $userfotothum;
+      }
       $users->datanasc = $request->get('data');
       
       $users->id_fk_categoria = $request->get('id_categoria');
       $users->save();
 
-      return redirect('/');
+      return redirect('users');
     }
     public function destroy($id)
     {
         $users = User::find($id);
         $users->delete();
-        return redirect('/');
+        return redirect('users');
     }
 }

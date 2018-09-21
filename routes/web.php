@@ -19,4 +19,10 @@ Route::resource('categorias', 'CategoriaController');
 Route::resource('users', 'UserController');
 Route::get('categorias/{categoria}/delete', 'CategoriaController@delete')->name('categorias.delete');
 Route::get('users/{user}/delete', 'UserController@delete')->name('users.delete');
+Route::get('error')->name('error');
+Route::post('process', function (Request $request) {
+    $path = $request->file('photo')->store('photos');
+
+    dd($path);
+});
 //Route::get('/categorias/{categoria}/edit', 'CategoriaController@edit');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use Storage;
 
 class ImageRepository extends Controller
 {
@@ -17,11 +18,8 @@ public function saveImage($image)
             $extension = $image->getClientOriginalExtension();
             $fileName = time() . random_int(100, 999) .'.' . $extension; 
             $destinationPath = public_path('images/');
-            $url = 'http://'.$_SERVER['HTTP_HOST'].'/images/'.$fileName;
+            $url = 'images/'.$fileName;
             $fullPath = $destinationPath.$fileName;
-            if (!file_exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0775);
-            }
             $image = Image::make($file)->encode('jpg');
             $image->save($fullPath, 100);
             return $url;
@@ -38,11 +36,8 @@ public function saveImage($image)
             $extension = $image->getClientOriginalExtension();
             $fileName = 'thumbnail' . time() . random_int(100, 999) .'.' . $extension; 
             $destinationPath = public_path('images/');
-            $url = 'http://'.$_SERVER['HTTP_HOST'].'/images/'.$fileName;
+            $url = 'images/'.$fileName;
             $fullPath = $destinationPath.$fileName;
-            if (!file_exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0775, true);
-            }
             $image = Image::make($file)
                 ->resize($size, null, function ($constraint) {
                     $constraint->aspectRatio();
@@ -51,7 +46,13 @@ public function saveImage($image)
             $image->save($fullPath, 100);
             return $url;
         } else {
-            return 'http://'.$_SERVER['HTTP_HOST'].'/images/'.$type.'/placeholder300x300.jpg';
+            return $image;
         }
+    }
+    
+    public function apagarImages($foto, $fotothun)
+    {
+        unlink(public_path($foto));
+        unlink(public_path($fotothun));
     }
 }

@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'cloud' => env('FILESYSTEM_CLOUD', 'ftp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -62,6 +62,14 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+        ],
+        
+        'ftp' => [
+            'driver'   => 'ftp',
+            'host'     => 'files.000webhost.com',
+            'username' => 'paulo-henriquekbrtec',
+            'password' => 'paulo123',
+            'root' => 'public_html/images',
         ],
 
     ],
