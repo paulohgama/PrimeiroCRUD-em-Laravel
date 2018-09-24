@@ -1,6 +1,12 @@
 @extends('layout')
 
 @section('content')
+
+@if (session('dawn'))
+    <div class="alert alert-danger" role="alert">
+  <strong>Oh Droga!!</strong> Não foi possivel enviar o email; 
+</div>
+@endif
 <div class="table-responsive">
 <table class="table table-bordered">
     <tr align="center">

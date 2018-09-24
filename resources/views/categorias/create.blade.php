@@ -8,7 +8,7 @@
     <div class="form-group">
         <label class="control-label col-sm-1" for="nome">Nome</label>
         <div class="col-sm-10">
-            <input type="text" name="nome" class="form-control" id="nome" placeholder="Categoria">
+            <input type="text" name="nome" class="form-control" id="nome" placeholder="Categoria" value="{{old('nome')}}">
         </div>
     </div>
     <div class="form-group"> 
@@ -18,4 +18,5 @@
   </div>
 </form>
 </fieldset>
+@include('inc.errors')
 @endsection

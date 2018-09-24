@@ -26,8 +26,8 @@
         <div class="form-group">
           <label class="control-label col-sm-2" for="foto">Foto</label>
           <div class="col-sm-10">
-          <img src="/{{$user->fotothun}}" class="img-thumbnail" alt="{{$user->nome}}" id="foto"><img />
-          <input type="file" class="form-control" name="foto" id="foto"  accept="image/*">
+          <img src="/{{ $user->fotothun }}" class="img-thumbnail" alt="{{$user->nome}}"/>
+          <input type="file" class="form-control" name="foto" id="foto">
           </div>
         </div>
         <div class="form-group">
@@ -46,4 +46,5 @@
           </div>
         </div>
       </form>
+@include('inc.errors')
 @endsection

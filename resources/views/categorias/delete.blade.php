@@ -13,10 +13,19 @@
         <tr>
         </table>
         <br>
-        <div>
-        <div class="btn-group"><button class="btn btn-danger" type="submit"></span>Deletar</button>
-        <a  class="btn btn-success" href="{{route('categorias.index')}}">Cancelar</a></div>
+        <div class="btn-group">
+            <a  class="btn btn-success" href="{{route('categorias.index')}}"><span class="glyphicon glyphicon-arrow-left"></span> Cancelar</a>
+            <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> Deletar</button>
+            </div>
 
     </form>
 </fieldset>
+@if (session('error'))
+    <div class="alert alert-danger show" role="alert">
+       {{session('error')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
 @endsection

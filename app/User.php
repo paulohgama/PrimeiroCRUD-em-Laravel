@@ -10,6 +10,27 @@ class User extends Model
         'nome', 'email', 'datanasc', 'foto', 'fotothun', 'id_fk_categoria'
     ];
     public $timestamps = false;
+    
+    public $rules = [
+        'nome' => 'bail|required|alpha|min:3|max:100',
+        'email' => 'bail|required|email|min:3|max:100|unique:users,email',
+        'data' => 'bail|required',
+        'foto' => 'bail|required|image',
+        ];
+    public $messages = [
+        'nome.required'     => 'O campo nome deve ser preenchido', 
+        'nome.alpha'        => 'O campo nome deve ter apenas letras', 
+        'nome.min'          => 'O campo nome deve conter mais de 3 caracteres', 
+        'nome.max'          => 'O campo numero deve ter no maximo 100 caracteres', 
+        'email.required'    => 'O campo email deve ser preenchido', 
+        'email.email'       => 'O campo email deve ser um email valido', 
+        'email.min'         => 'O campo email deve ter mais de 3 caracteres', 
+        'email.max'         => 'O campo email deve ter no maximo 100 caracteres', 
+        'email.unique'      => 'Este email já foi utilizado', 
+        'data.required'     => 'O campo data deve ser preenchido', 
+        'foto.required'     => 'A foto deve ser inserida', 
+        'foto.image'        => 'O arquivo deve ser uma imagem valida', 
+        ];
 
     /*public function categoria()
     {

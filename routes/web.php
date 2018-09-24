@@ -14,11 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::post('categorias/{id}', 'CategoriaController@update')->name('categorias.update');
 Route::resource('categorias', 'CategoriaController');
 Route::resource('users', 'UserController');
 Route::get('categorias/{categoria}/delete', 'CategoriaController@delete')->name('categorias.delete');
 Route::get('users/{user}/delete', 'UserController@delete')->name('users.delete');
-Route::get('error')->name('error');
-Route::post('/send', 'EmailController@send');
-//Route::get('/categorias/{categoria}/edit', 'CategoriaController@edit');

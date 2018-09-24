@@ -19,13 +19,14 @@
             <td><input type="date" value="{{ $user->datanasc }}" disabled></td></tr>
         <tr>
             <th>Foto: </th>
-            <td><img src="{{$user->fotothun}}" class="img-thumbnail" alt="{{$user->nome}}"><img /></td></tr>
+            <td><img src="/{{$user->fotothun}}" class="img-thumbnail" alt="{{$user->nome}}"><img /></td></tr>
         </table>
         </div>
         <br>
         <div class="btn-group"> 
-        <button class="btn btn-danger" type="submit"></span>Deletar</button>
-        <a  class="btn btn-success" href="{{route('users.index')}}" role="button">Cancelar</a>
+        <a  class="btn btn-success" href="{{route('users.index')}}" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Cancelar</a>
+        <button class="btn btn-danger" type="submit"><span class="glyphicon glyphicon-remove"></span> Deletar</button>
+        
     </div>
     </form>
 </fieldset>

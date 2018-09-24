@@ -3,12 +3,13 @@
 @section('content')
 <fieldset class="form-group">
 <legend>Cadastrar categoria</legend>
-<form class="form-horizontal" method="POST" action="{{ route('categorias.update', $categoria->id) }}">
+<form class="form-horizontal" method="POST" action="{{ route('categorias.update', $categoria->id) }}"/>
+    @method('PATCH')
     @csrf
     <div class="form-group">
-        <label class="control-label col-sm-2" for="email">Categoria</label>
+        <label class="control-label col-sm-2" for="nome">Categoria</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="nome" placeholder="Categoria" value={{ $categoria->categoria }}>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Categoria" value={{ $categoria->categoria }}>
         </div>
     </div>
     <div class="form-group"> 

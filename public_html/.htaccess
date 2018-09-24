@@ -19,3 +19,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# HTID:6856587: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
+Redirect 301 /email http://paulogama.com
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:6856587:

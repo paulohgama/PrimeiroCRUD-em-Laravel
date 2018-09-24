@@ -7,10 +7,17 @@ use App\Categoria;
 
 class CategoriaController extends Controller
 {
+    private $categoria;
+    
+    public function __construct(Categoria $categoria) {
+        $this->categoria = $categoria;
+    }
+
     public function index()
     {
-        $categorias = Categoria::all();
-
+        $this->categoria = Categoria::all();
+        $categorias = $this->categoria;
+        //dd($categorias);
         return view('categorias.index', compact('categorias'));
     }
     public function create()
@@ -20,42 +27,51 @@ class CategoriaController extends Controller
 
     public function edit($id)
     {
-        $categoria = Categoria::find($id);
-
-        return view('categorias.edit', compact('categoria'));
+        $this->categoria = Categoria::find($id);
+        $categorias = $this->categoria;
+        return view('categorias.edit', compact('categorias'));
     }
 
     public function delete($id)
     {
-        $categoria = Categoria::find($id);
-
+        $this->categoria = Categoria::find($id);
+        $categoria = $this->categoria;
         return view('categorias.delete', compact('categoria'));
     }
 
     public function store(Request $request)
     {
-        $request->validate(['nome'=>'required']);
-        $categoria = new Categoria(['categoria' => $request->get('nome'),]);
-        $categoria->save();
+        $this->validate($request, $this->categoria->rules, $this->categoria->messages);
+        $this->categoria->categoria = $request->get('nome');
+        $this->categoria->save();
         return redirect('/categorias');
     }
 
     public function update(Request $request, $id)
     {
-      $request->validate([
-        'nome'=>'required',
-      ]);
+        $this->validate($request, $this->categoria->rules, $this->categoria->messages);
+        $this->categoria->find($id);
+        $this->categoria->categoria = $request->get('nome');
+        try
+        {
+            $this->categoria->save();
+        }
+        catch(Exception $ex){
 
-      $categoria = Categoria::find($id);
-      $categoria->categoria = $request->get('nome');
-      $categoria->save();
-
-      return redirect('/categorias');
+        }
+        return redirect('/categorias');
     }
     public function destroy($id)
     {
-        $categoria = Categoria::find($id);
-        $categoria->delete();
+        $this->categoria = Categoria::find($id);
+        try
+        {
+            $this->categoria->delete();
+        }
+        catch(\Illuminate\Database\QueryException $ex)
+        {
+            return redirect('categorias/'.$id.'/delete')->with('error', 'Erro ao Excluir categoria');
+        }
 
         return redirect('/categorias');
     }
