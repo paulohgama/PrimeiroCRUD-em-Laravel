@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+    'host' => env('MAIL_HOST', 'smtplw.com.br'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'paulo@kbrtec.com'),
-        'name' => env('MAIL_FROM_NAME', 'Laravel CRUD'),
+        'address' => env('MAIL_FROM_ADDRESS', 'smtp@kbrtec.com.br'),
+        'name' => env('MAIL_FROM_NAME', 'Paulo Henrique'),
     ],
 
     /*
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME', 'fatecpgmentoring@gmail.com'),
+    'username' => env('MAIL_USERNAME', 'kbrtec12'),
 
-    'password' => env('MAIL_PASSWORD', 'Mentoring123'),
+    'password' => env('MAIL_PASSWORD', 'qoCLMtEf6185'),
 
     /*
     |--------------------------------------------------------------------------
@@ -119,5 +119,4 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-
 ];

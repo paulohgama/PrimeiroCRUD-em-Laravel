@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Categoria;
+use Illuminate\Database\QueryException;
 
 class CategoriaController extends Controller
 {
@@ -15,9 +16,8 @@ class CategoriaController extends Controller
 
     public function index()
     {
-        $this->categoria = Categoria::all();
+        $this->categoria = Categoria::orderBy('id', 'desc')->get();
         $categorias = $this->categoria;
-        //dd($categorias);
         return view('categorias.index', compact('categorias'));
     }
     public function create()
@@ -28,8 +28,8 @@ class CategoriaController extends Controller
     public function edit($id)
     {
         $this->categoria = Categoria::find($id);
-        $categorias = $this->categoria;
-        return view('categorias.edit', compact('categorias'));
+        $categoria = $this->categoria;
+        return view('categorias.edit', compact('categoria'));
     }
 
     public function delete($id)
@@ -43,23 +43,29 @@ class CategoriaController extends Controller
     {
         $this->validate($request, $this->categoria->rules, $this->categoria->messages);
         $this->categoria->categoria = $request->get('nome');
-        $this->categoria->save();
-        return redirect('/categorias');
+        try
+        {
+            $this->categoria->save();
+            return redirect('/categorias')->with('success', 'Categoria cadastrada com sucesso');
+        } catch(QueryException $ex)
+        {
+            return redirect('/categorias')->with('failure', 'Erro ao cadastrar categoria');
+        }
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->categoria->rules, $this->categoria->messages);
-        $this->categoria->find($id);
+        $this->categoria = Categoria::find($id);
         $this->categoria->categoria = $request->get('nome');
         try
         {
-            $this->categoria->save();
+            $this->categoria->update();
+             return redirect('/categorias')->with('success', 'Categoria alterada com sucesso');
+        } catch(QueryException $ex)
+        {
+            return redirect('/categorias')->with('failure', 'Erro ao alterar categoria');
         }
-        catch(Exception $ex){
-
-        }
-        return redirect('/categorias');
     }
     public function destroy($id)
     {
@@ -67,12 +73,11 @@ class CategoriaController extends Controller
         try
         {
             $this->categoria->delete();
-        }
-        catch(\Illuminate\Database\QueryException $ex)
+             return redirect('/categorias')->with('success', 'Categoria deletada com sucesso');
+        } 
+        catch(QueryException $ex)
         {
-            return redirect('categorias/'.$id.'/delete')->with('error', 'Erro ao Excluir categoria');
+            return redirect('/categorias')->with('failure', 'Erro ao deletar categoria');
         }
-
-        return redirect('/categorias');
     }
 }

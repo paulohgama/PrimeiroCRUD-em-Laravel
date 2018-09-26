@@ -23,14 +23,18 @@ class dispararEmail extends Mailable
 
     public function build()
     {
-        $nome = ['nome' => $this->nome, 'mensagem' => $this->mensagem];
-        $envio = Mail::send('emails.corpodoemail', $nome, function($message){
+        try{
+            $nome = ['nome' => $this->nome, 'mensagem' => $this->mensagem];
+            $envio = Mail::send('emails.corpodoemail', $nome, function($message){
 
-            $message->to($this->email);
-            $message->subject($this->mensagem.' '.$this->nome);
-        });
-        $erros = Mail::failures();
-        return $erros;
+                $message->to($this->email);
+                $message->subject($this->mensagem.' '.$this->nome);
+                $message->from('smtp@kbrtec.com.br');
+            });
+            $erros = Mail::failures();
+            return $erros;
+        }
+        catch(\GuzzleHttp\Exception\ClientException $ex) {}
         
     }
 }

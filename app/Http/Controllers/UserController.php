@@ -7,6 +7,8 @@ use App\User;
 use App\Categoria;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Mail\dispararEmail;
+use Swift_TransportException;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -16,7 +18,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::select('users.id', 'nome', 'email', 'foto', 'fotothun', 'datanasc', 'categoria')->join('categorias', 'categorias.id', '=', 'id_fk_categoria')->get();
+        $users = User::select('users.id', 'nome', 'email', 'foto', 'fotothun', 'datanasc', 'categoria')->join('categorias', 'categorias.id', '=', 'id_fk_categoria')->orderBy('users.id', 'desc')->get();
         return view('users.index', compact('users'));
     }
     public function create()
@@ -46,9 +48,9 @@ class UserController extends Controller
             $dispara = new dispararEmail( $request->get('email'), $request->get('nome'), 'Seu cadastro');
             $dispara->build();
         }
-        catch(Exception $ex)
+        catch(Swift_TransportException $ex)
         {
-            return redirect('users')->with('dawn');
+            //return redirect('users')->with('failure', 'E-mail não enviado');
         }
         $userfoto = $repo->saveImage($request->foto);
         $userfotothum= $repo->saveImageThumbnail($request->file('foto'), 150);
@@ -62,12 +64,12 @@ class UserController extends Controller
         ]);
         try{
             $users->save();
-        }
-        catch(Exception $ex)
+            return redirect('/users')->with('success', 'Usuario cadastrada com sucesso');
+        } 
+        catch(QueryException $ex)
         {
-           $ex->getMessage();
+            return redirect('/users')->with('failure', 'Erro ao cadastrar usuario');
         }
-        return redirect('users');
     }
 
     public function update(Request $request, $id, ImageRepository $repo)
@@ -94,15 +96,29 @@ class UserController extends Controller
       $users->datanasc = $request->get('data');
       
       $users->id_fk_categoria = $request->get('id_categoria');
-      $users->update();
-
-      return redirect('users');
+      try 
+      {
+          $users->update();
+              return redirect('/users')->with('success', 'Usuario alterado com sucesso');
+        } 
+        catch(QueryException $ex)
+        {
+            return redirect('/users')->with('failure', 'Erro ao alterar usuario');
+        }
     }
     public function destroy($id, ImageRepository $repo)
     {
         $users = User::find($id);
         $repo->apagarImages($users->foto, $users->fotothun);
-        $users->delete();
-        return redirect('users');
+        
+        try
+        {
+            $users->delete();    
+            return redirect('/users')->with('success', 'Usuario deletado com sucesso');
+        } 
+        catch(QueryException $ex)
+        {
+            return redirect('/users')->with('failure', 'Erro ao deletar usuario');
+        }
     }
 }

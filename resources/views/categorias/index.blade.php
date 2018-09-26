@@ -19,4 +19,5 @@
         @endforeach
   </table>
   </div>
+  @include('inc.feedback')
 @endsection

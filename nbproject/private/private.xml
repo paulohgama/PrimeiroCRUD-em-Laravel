@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/app/Http/Controllers/UserController.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/resources/views/users/edit.blade.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/resources/views/emails/corpodoemail.blade.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/.env</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/app/Mail/dispararEmail.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/app/Http/Controllers/ImageRepository.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/config/mail.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/resources/views/layout.blade.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/resources/views/inc/feedback.blade.php</file>
+            <file>file:/C:/xampp/htdocs/PrimeiroCRUD-em-Laravel/resources/views/users/create.blade.php</file>
+        </group>
+    </open-files>
+</project-private>

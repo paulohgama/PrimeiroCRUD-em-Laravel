@@ -7,7 +7,7 @@
   <strong>Oh Droga!!</strong> Não foi possivel enviar o email; 
 </div>
 @endif
-<div class="table-responsive">
+<div class="table-responsive text-center">
 <table class="table table-bordered">
     <tr align="center">
         <td>ID</td>

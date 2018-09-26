@@ -11,14 +11,14 @@ class Categoria extends Model
     protected $fillable = ['categoria'];
     public $timestamps=false;
     public $rules = [
-        'nome' => 'min:4|max:100|required|alpha'
+        'nome' => 'bail|min:4|max:100|required|unique:categorias,categoria'
     ];
     public $messages = [
         'nome.min' => 'A Categoria precisa ter mais de 3 caracteres',
         'nome.max' => 'A Categoria precisa ter no maximo 100 caracteres',
         'nome.required' => 'A Categoria deve ser preenchida',
-        'nome.alpha' => 'Digite apenas letras'
-    ];
+        'nome.unique' => 'A categoria deve ser unica'
+        ];
 
     /*public function users()
     {

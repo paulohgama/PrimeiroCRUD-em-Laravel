@@ -67,8 +67,8 @@ return [
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'files.000webhost.com',
-            'username' => 'paulo-henriquekbrtec',
-            'password' => 'paulo123',
+            'username' => '',
+            'password' => '',
             'root' => 'public_html/images',
         ],
 
